@@ -1,6 +1,14 @@
 import { MdCreateNewFolder } from "react-icons/md";
+import { ImCancelCircle } from "react-icons/im";
 
-const Create = ({ saveTitleToState, saveContentToState, savePost }) => {
+const Create = ({
+  getTitle,
+  getContent,
+  saveTitleToState,
+  saveContentToState,
+  savePost,
+  returnBack,
+}) => {
   return (
     <>
       <form
@@ -9,6 +17,7 @@ const Create = ({ saveTitleToState, saveContentToState, savePost }) => {
       >
         <h1 className="text-primary">Create New Post</h1>
         <input
+          ref={getTitle}
           type="text"
           placeholder="title"
           className="form-control mb-3"
@@ -16,13 +25,24 @@ const Create = ({ saveTitleToState, saveContentToState, savePost }) => {
         />
 
         <textarea
+          ref={getContent}
           placeholder="content"
           className="form-control mb-3"
           onChange={saveContentToState}
         ></textarea>
 
-        <button className="btn bg-success text-light p-2" onClick={savePost}>
+        <button
+          className="btn bg-success text-light p-2 mx-2"
+          onClick={savePost}
+        >
           <MdCreateNewFolder style={{ fontSize: "25px" }} /> Create Post
+        </button>
+
+        <button
+          className="btn bg-secondary text-light p-2 mx-2"
+          onClick={returnBack}
+        >
+          <ImCancelCircle style={{ fontSize: "25px" }} /> Cancel
         </button>
       </form>
     </>
