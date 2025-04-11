@@ -1,6 +1,12 @@
 import { GrUpdate } from "react-icons/gr";
 
-const Edit = () => {
+const Edit = ({
+  title,
+  content,
+  saveTitleToState,
+  saveContentToState,
+  updatePost,
+}) => {
   return (
     <>
       <form
@@ -8,13 +14,24 @@ const Edit = () => {
         style={{ borderRadius: "15px" }}
       >
         <h1 className="text-warning mb-4">Edit Post</h1>
-        <input type="text" placeholder="title" className="form-control" />
+        <input
+          type="text"
+          placeholder="title"
+          className="form-control"
+          defaultValue={title}
+          onChange={saveTitleToState}
+        />
         <br />
         <br />
-        <textarea placeholder="contents" className="form-control"></textarea>
+        <textarea
+          placeholder="contents"
+          className="form-control"
+          defaultValue={content}
+          onChange={saveContentToState}
+        ></textarea>
         <br />
         <br />
-        <button className="btn bg-success text-light p-2">
+        <button className="btn bg-success text-light p-2" onClick={updatePost}>
           {" "}
           <GrUpdate style={{ fontSize: "25px" }} /> Update Post
         </button>
