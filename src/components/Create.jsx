@@ -1,5 +1,6 @@
 import { MdCreateNewFolder } from "react-icons/md";
 import { ImCancelCircle } from "react-icons/im";
+import { useTheme } from "../context/ThemeContext";
 
 const Create = ({
   getTitle,
@@ -9,10 +10,16 @@ const Create = ({
   savePost,
   returnBack,
 }) => {
+  const { isDark } = useTheme();
+
   return (
     <>
       <form
-        className="w-50 border bg-light p-3 rounded text-center mx-auto mt-5"
+        className={`w-50 border p-3 rounded text-center mx-auto mt-5 ${
+          isDark
+            ? "bg-dark text-light border-light"
+            : "bg-light text-dark border-dark"
+        }`}
         style={{ borderRadius: "15px" }}
       >
         <h1 className="text-primary">Create New Post</h1>
@@ -20,14 +27,18 @@ const Create = ({
           ref={getTitle}
           type="text"
           placeholder="title"
-          className="form-control mb-3"
+          className={`form-control mb-3 ${
+            isDark ? "bg-dark text-light border-light" : ""
+          }`}
           onChange={(e) => saveTitleToState(e)}
         />
 
         <textarea
           ref={getContent}
           placeholder="content"
-          className="form-control mb-3"
+          className={`form-control mb-3 ${
+            isDark ? "bg-dark text-light border-light" : ""
+          }`}
           onChange={saveContentToState}
         ></textarea>
 
