@@ -27,26 +27,29 @@ const List = () => {
   // useEffect(() => console.log(posts), [posts]);
   // useEffect(() => console.log(editId), [editId]);
 
-  const getTitle = useRef(null);
+  const getTitle = useRef();
   const getContent = useRef();
 
   useEffect(() => {
     fetchPost();
   }, []);
+
   const fetchPost = async () => {
-    try {
-      const token = localStorage.getItem("token");
-      const blog = await axios.get(
-        "https://blog-olive-three-64.vercel.app/blog",
-        {
-          withCredentials: true,
-        }
-      );
-      // console.log(blog.data);
-      setPosts(blog.data);
-    } catch (err) {
-      console.log("Fetch error:", err);
+    const authToken = localStorage.getItem("token");
+    if (!authToken) {
+      console.error("Authentication token not found.");
+      return;
     }
+    await axios
+      .get("https://blog-olive-three-64.vercel.app/blog", {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      })
+      .then((res) => setPosts(res.data))
+      .catch((err) => console.error(err));
+
+    // console.log("Fetch error:", err);
   };
 
   function toggleCreate() {
@@ -69,10 +72,23 @@ const List = () => {
     event.preventDefault();
     if (title && content) {
       // setPosts([...posts, {id: Date.now(), title, content}])
-      await axios.post("https://blog-olive-three-64.vercel.app/blog", {
-        title,
-        content,
-      });
+      const authToken = localStorage.getItem("token");
+      if (!authToken) {
+        console.error("Authentication token not found.");
+        return;
+      }
+      await axios.post(
+        "https://blog-olive-three-64.vercel.app/blog",
+        {
+          title,
+          content,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
+        }
+      );
       fetchPost();
 
       getTitle.current.value = "";
@@ -102,10 +118,23 @@ const List = () => {
   const updatePost = async (event) => {
     event.preventDefault();
     if (title && content) {
-      await axios.put(`https://blog-olive-three-64.vercel.app/blog/${editId}`, {
-        title,
-        content,
-      });
+      const authToken = localStorage.getItem("token");
+      if (!authToken) {
+        console.error("Authentication token not found.");
+        return;
+      }
+      await axios.put(
+        `https://blog-olive-three-64.vercel.app/blog/${editId}`,
+        {
+          title,
+          content,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
+        }
+      );
       fetchPost();
 
       getTitle.current.value = "";
@@ -122,24 +151,26 @@ const List = () => {
     }
   };
 
-  // function deletePost(id) {
-  //   const confirmed = window.confirm(
-  //     "Are you sure you want to delete this post?"
-  //   );
-  //   if (confirmed) {
-  //     const modifiedPosts = posts.filter((post) => {
-  //       return post.id !== id;
-  //     });
-  //     setPosts(modifiedPosts);
-  //   }
-  // }
-
   const deletePost = async (id) => {
     const confirmed = window.confirm(
       "Are you sure you want to delete this post?"
     );
+    const authToken = localStorage.getItem("token");
+    if (!authToken) {
+      console.error("Authentication token not found.");
+      return;
+    }
     if (confirmed) {
-      await axios.delete(`https://blog-olive-three-64.vercel.app/blog/${id}`);
+      // const authToken = localStorage.getItem("token");
+      // if (!authToken) {
+      //   console.error("Authentication token not found.");
+      //   return;
+      // }
+      await axios.delete(`https://blog-olive-three-64.vercel.app/blog/${id}`, {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
       fetchPost();
     }
   };
