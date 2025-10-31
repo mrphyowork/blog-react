@@ -31,7 +31,7 @@ const Register = () => {
       const response = await axios.post(
         "https://blog-olive-three-64.vercel.app/user/register",
         {
-          name: formData.name,
+          username: formData.name,
           email: formData.email,
           password: formData.password,
         }
