@@ -5,7 +5,7 @@ import Edit from "./Edit";
 import axios from "axios";
 import { useTheme } from "../context/ThemeContext";
 
-const List = () => {
+const List = ({ handleLogout }) => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [posts, setPosts] = useState([]);
@@ -231,7 +231,10 @@ const List = () => {
       <div>
         <button
           className="btn btn-danger position-fixed top-0 end-0 m-3"
-          onClick={handleLogout}
+          onClick={() => {
+            localStorage.removeItem("token");
+            handleLogout();
+          }}
         >
           Logout
         </button>

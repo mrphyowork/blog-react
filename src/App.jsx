@@ -1,12 +1,15 @@
 import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import "./App.css";
 import List from "./components/List";
 import Login from "./components/Login";
-import { ThemeProvider } from "./context/ThemeContext";
 import Register from "./components/Register";
-import { Navigate, Route, Router, Routes } from "react-router-dom";
+import { ThemeProvider } from "./context/ThemeContext";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
