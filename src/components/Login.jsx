@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useTheme } from "../context/ThemeContext";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const Login = ({ handleLogin }) => {
   const [email, setEmail] = useState("");
@@ -83,6 +84,11 @@ const Login = ({ handleLogin }) => {
         <button type="submit" className="btn btn-primary w-100">
           Login
         </button>
+        <div className="text-center">
+          <Link to="/register" className="text-decoration-none">
+            Don't have an account? Register
+          </Link>
+        </div>
       </form>
     </div>
   );

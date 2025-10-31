@@ -230,9 +230,15 @@ const List = () => {
     return (
       <div>
         <button
+          className="btn btn-danger position-fixed top-0 end-0 m-3"
+          onClick={handleLogout}
+        >
+          Logout
+        </button>
+        <button
           className={`btn ${
             isDark ? "btn-light" : "btn-dark"
-          } position-fixed top-0 end-0 m-3`}
+          } position-fixed top-0 start-0 m-3`}
           onClick={toggleTheme}
         >
           {isDark ? "☀️" : "🌙"}
