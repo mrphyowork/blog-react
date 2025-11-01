@@ -24,8 +24,8 @@ const List = () => {
       : "bg-light text-dark";
   }, [isDark]);
 
-  useEffect(() => console.log(title), [title]);
-  useEffect(() => console.log(content), [content]);
+  // useEffect(() => console.log(title), [title]);
+  // useEffect(() => console.log(content), [content]);
   // useEffect(() => console.log(posts), [posts]);
   // useEffect(() => console.log(editId), [editId]);
 
@@ -163,11 +163,6 @@ const List = () => {
       return;
     }
     if (confirmed) {
-      // const authToken = localStorage.getItem("token");
-      // if (!authToken) {
-      //   console.error("Authentication token not found.");
-      //   return;
-      // }
       await axios.delete(`https://blog-olive-three-64.vercel.app/blog/${id}`, {
         headers: {
           Authorization: `Bearer ${authToken}`,
@@ -179,13 +174,7 @@ const List = () => {
 
   if (isCreate) {
     return (
-      <div
-      // className={
-      //   isDark
-      //     ? "bg-dark text-light min-vh-100"
-      //     : "bg-light text-dark min-vh-100"
-      // }
-      >
+      <div>
         <button
           className={`btn ${
             isDark ? "btn-light" : "btn-dark"
@@ -245,7 +234,7 @@ const List = () => {
         >
           {isDark ? "☀️" : "🌙"}
         </button>
-        {/* <div className="container py-5 mt-5"> */}
+
         <h1 className="text-center">All Posts</h1>
 
         {posts.length ? (
