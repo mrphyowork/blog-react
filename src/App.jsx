@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -10,49 +9,38 @@ import List from "./components/List";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import { ThemeProvider } from "./context/ThemeContext";
+import { AuthProvider, useAuth } from "./context/AuthContext";
 
-function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  const handleLogin = () => {
-    setIsLoggedIn(true);
-  };
-
-  const handleLogout = () => {
-    setIsLoggedIn(false);
-  };
+function AppRoutes() {
+  const { isLoggedIn } = useAuth();
 
   return (
-    <ThemeProvider>
-      <Router>
-        <Routes>
-          <Route
-            path="/login"
-            element={
-              isLoggedIn ? (
-                <Navigate to="/" />
-              ) : (
-                <Login handleLogin={handleLogin} />
-              )
-            }
-          />
-          <Route
-            path="/register"
-            element={isLoggedIn ? <Navigate to="/" /> : <Register />}
-          />
-          <Route
-            path="/"
-            element={
-              isLoggedIn ? (
-                <List handleLogout={handleLogout} />
-              ) : (
-                <Navigate to="/login" />
-              )
-            }
-          />
-        </Routes>
-      </Router>
-    </ThemeProvider>
+    <Router>
+      <Routes>
+        <Route
+          path="/login"
+          element={isLoggedIn ? <Navigate to="/" /> : <Login />}
+        />
+        <Route
+          path="/register"
+          element={isLoggedIn ? <Navigate to="/" /> : <Register />}
+        />
+        <Route
+          path="/"
+          element={isLoggedIn ? <List /> : <Navigate to="/login" />}
+        />
+      </Routes>
+    </Router>
+  );
+}
+
+function App() {
+  return (
+    <AuthProvider>
+      <ThemeProvider>
+        <AppRoutes />
+      </ThemeProvider>
+    </AuthProvider>
   );
 }
 

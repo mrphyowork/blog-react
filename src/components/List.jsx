@@ -4,8 +4,10 @@ import Post from "./Post";
 import Edit from "./Edit";
 import axios from "axios";
 import { useTheme } from "../context/ThemeContext";
+import { useAuth } from "../context/AuthContext";
 
-const List = ({ handleLogout }) => {
+const List = () => {
+  const { handleLogout } = useAuth();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [posts, setPosts] = useState([]);
@@ -231,10 +233,7 @@ const List = ({ handleLogout }) => {
       <div>
         <button
           className="btn btn-danger position-fixed top-0 end-0 m-3"
-          onClick={() => {
-            localStorage.removeItem("token");
-            handleLogout();
-          }}
+          onClick={handleLogout}
         >
           Logout
         </button>

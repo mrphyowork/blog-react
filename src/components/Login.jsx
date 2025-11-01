@@ -1,9 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useTheme } from "../context/ThemeContext";
+import { useAuth } from "../context/AuthContext";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-const Login = ({ handleLogin }) => {
+const Login = () => {
+  const { handleLogin } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { isDark, toggleTheme } = useTheme();
@@ -24,8 +26,6 @@ const Login = ({ handleLogin }) => {
         );
         const token = user.data.accessToken;
         localStorage.setItem("token", token);
-        console.log("Token saved:", token);
-        console.log("Login successful");
         handleLogin();
       } catch (err) {
         alert("email or password are incorrect!");
