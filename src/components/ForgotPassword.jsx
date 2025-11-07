@@ -1,22 +1,26 @@
 import React, { useState } from "react";
 import { useTheme } from "../context/ThemeContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const { isDark, toggleTheme } = useTheme();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (email) {
       try {
-        await axios.post(
+        const user = await axios.post(
           "https://blog-olive-three-64.vercel.app/user/forgot-password",
           { email }
         );
+        console.log(user);
+
         setMessage("Password reset link sent to your email!");
+        navigate("/reset-password/");
       } catch (err) {
         setMessage("Error sending reset link. Please try again.");
       }
