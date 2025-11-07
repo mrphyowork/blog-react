@@ -13,7 +13,7 @@ const ForgotPassword = () => {
     if (email) {
       try {
         await axios.post(
-          "https://blog-olive-three-64.vercel.app/user/forgot-password",
+          "https://blog-olive-three-64.vercel.app/forgot-password",
           { email }
         );
         setMessage("Password reset link sent to your email!");
