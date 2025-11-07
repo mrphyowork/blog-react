@@ -21,11 +21,9 @@ const ForgotPassword = () => {
         const resetToken = response.data.resetToken || response.data.token;
         console.log(resetToken);
 
-        if (resetToken) {
-          navigate(`/reset-password/${resetToken}`);
-        } else {
-          setMessage("Password reset link sent to your email!");
-        }
+        navigate(`/reset-password/${resetToken}`);
+
+        setMessage("Password reset link sent to your email!");
       } catch (err) {
         setMessage("Error sending reset link. Please try again.");
       }
