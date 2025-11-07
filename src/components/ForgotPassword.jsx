@@ -19,6 +19,7 @@ const ForgotPassword = () => {
         );
 
         const resetToken = response.data.resetToken || response.data.token;
+        console.log(resetToken);
 
         if (resetToken) {
           navigate(`/reset-password/${resetToken}`);
