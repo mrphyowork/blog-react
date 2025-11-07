@@ -9,6 +9,7 @@ import List from "./components/List";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import ForgotPassword from "./components/ForgotPassword";
+import ResetPassword from "./components/ResetPassword";
 import { ThemeProvider } from "./context/ThemeContext";
 import { AuthProvider, useAuth } from "./context/AuthContext";
 
@@ -29,6 +30,10 @@ function AppRoutes() {
         <Route
           path="/forgot-password"
           element={isLoggedIn ? <Navigate to="/" /> : <ForgotPassword />}
+        />
+        <Route
+          path="/reset-password/:token"
+          element={isLoggedIn ? <Navigate to="/" /> : <ResetPassword />}
         />
         <Route
           path="/"
