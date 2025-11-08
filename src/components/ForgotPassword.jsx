@@ -13,17 +13,14 @@ const ForgotPassword = () => {
     e.preventDefault();
     if (email) {
       try {
-        const response = await axios.post(
+        const user = await axios.post(
           "https://blog-olive-three-64.vercel.app/user/forgot-password",
           { email }
         );
-
-        const resetToken = response.data.resetToken || response.data.token;
-        console.log(resetToken);
-
-        navigate(`/reset-password/${resetToken}`);
+        console.log(user);
 
         setMessage("Password reset link sent to your email!");
+        navigate("/reset-password/");
       } catch (err) {
         setMessage("Error sending reset link. Please try again.");
       }
